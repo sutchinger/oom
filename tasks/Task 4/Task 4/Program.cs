@@ -38,10 +38,12 @@ namespace task_4
             }
         }
 
+        
         public Pyramide()
         {
             throw new Exception("keine Parameter übergeben");
         }
+        
 
         public string Name { get; set; }
         public int Index { get; set; }
@@ -85,9 +87,41 @@ namespace task_4
         {
             WriteLine("Steinmetz wird beauftragt");
         }
-        
+    }
+    class UrnenGrab : IGrab
+    {
+        public UrnenGrab(string newName, int newIndex)
+        {
+            Name = newName;
+            {
+                if (Name == "")
+                {
+                    Name = "Salz Gurke";
+                }
+            }
+            Index = newIndex;
+            {
+                Index = Index > 0 ? Index : 1;
+
+            }
+        }
+        public UrnenGrab()
+        {
+            throw new Exception("keine Parameter übergeben");
+        }
+
+        public int Index { get; set; }
+        public string Name { get; set; }
+
+        public string Typ => "Urnengrab";
+        public void MachInschrift()
+        {
+            WriteLine("Ettikettiermaschine wird aus dem Keller geholt");
+        }
+
 
     }
+
     class Program
     {
 
@@ -137,9 +171,17 @@ namespace task_4
 
             string P1 = JsonConvert.SerializeObject(a);
             WriteLine("\n****"+P1+"***\n");
+            try
+            {
+                Pyramide z = JsonConvert.DeserializeObject<Pyramide>(P1);
+                WriteLine($"{z.Name} liegt auf Nummer {z.Index} in einem Typ {z.Typ}");
+            }
+            
+            catch (Exception)
+            {
 
-            Pyramide z = JsonConvert.DeserializeObject<Pyramide>(P1);
-            WriteLine($"{z.Name} liegt auf Nummer {z.Index} in einem Typ {z.Typ}");
+            }
+            
 
 
             /// Manuelle Grab Vergabe
@@ -151,7 +193,7 @@ namespace task_4
             
             do
             {
-                WriteLine("\nNeues Grab vergeben:\nE: ErdGrab\nP: Pyramide\nx: beenden");
+                WriteLine("\nNeues Grab vergeben:\nE: ErdGrab\nP: Pyramide\nU: Urnengrabx: beenden");
                 /// Auswahl einlesen und Exeption Handling
                 try
                 {
@@ -177,6 +219,12 @@ namespace task_4
 
                         neu.Add(new ErdGrab(tempName, tempIndex));
 
+                        break;
+                    case 'u':
+                    case 'U':
+
+                        tempName = GrabEingabe(ref tempIndex);
+                        neu.Add(new UrnenGrab(tempName, tempIndex));
                         break;
                     case 'x':
                         break;

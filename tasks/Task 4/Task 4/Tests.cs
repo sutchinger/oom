@@ -21,6 +21,8 @@ namespace Task_4
             Assert.True(x.Index > 0);
             var y = new ErdGrab("Hans", -1);
             Assert.True(y.Index > 0);
+            var z = new UrnenGrab("Hans", -1);
+            Assert.True(z.Index > 0);
         }
 
         [Test]
@@ -28,8 +30,10 @@ namespace Task_4
         {
             var x = new ErdGrab("", 1);
             var y = new Pyramide("", 1);
+            var z = new UrnenGrab("", 1);
             Assert.True(x.Name != "");
             Assert.False(y.Name == "");
+            Assert.AreNotEqual(z.Name, "");
         }
 
         [Test]
@@ -89,6 +93,13 @@ namespace Task_4
             Assert.Catch(() => { var x = new ErdGrab(); });
 
         }
-
+        [Test]
+        public void CanCreateUrnengrab()
+        {
+            var x = new UrnenGrab("Ramses", 1);
+            Assert.IsTrue(x.Name == "Ramses");
+            Assert.IsTrue(x.Index == 1);
+            Assert.IsTrue(x.Typ == "Urnengrab");
+        }
     }
 }
