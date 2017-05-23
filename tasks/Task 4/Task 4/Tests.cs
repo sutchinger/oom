@@ -26,13 +26,24 @@ namespace Task_4
         }
 
         [Test]
-        public void NoName()
+        public void PyramideNoName()
+        {
+            
+            var y = new Pyramide("", 1);
+            Assert.False(y.Name == "");
+
+        }
+        [Test]
+        public void ErdgrabNoName()
         {
             var x = new ErdGrab("", 1);
-            var y = new Pyramide("", 1);
-            var z = new UrnenGrab("", 1);
             Assert.True(x.Name != "");
-            Assert.False(y.Name == "");
+            
+        }
+        [Test]
+        public void UrneNoName()
+        {
+            var z = new UrnenGrab("", 1);
             Assert.AreNotEqual(z.Name, "");
         }
 
@@ -77,22 +88,10 @@ namespace Task_4
             Array.Sort(array, delegate (IGrab x, IGrab y) {
                 return x.Index.CompareTo(y.Index);
             });
-            Assert.IsTrue(array[0].Index == 1);
+            Assert.That(array[0].Index == 1);
         }
 
-        [Test]
-        public void CatchPyramideWithoutParameter()
-        {
-            Assert.Catch(() => { var x = new Pyramide(); });
-            
-        }
-
-        [Test]
-        public void CatchErdgrabWithoutParameter()
-        {
-            Assert.Catch(() => { var x = new ErdGrab(); });
-
-        }
+        
         [Test]
         public void CanCreateUrnengrab()
         {

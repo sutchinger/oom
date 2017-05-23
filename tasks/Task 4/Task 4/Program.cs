@@ -39,10 +39,6 @@ namespace task_4
         }
 
         
-        public Pyramide()
-        {
-            throw new Exception("keine Parameter übergeben");
-        }
         
 
         public string Name { get; set; }
@@ -74,10 +70,7 @@ namespace task_4
 
             }
         }
-        public ErdGrab()
-        {
-            throw new Exception("keine Parameter übergeben");
-        }
+       
 
         public int Index { get; set; }
         public string Name { get; set; }
@@ -105,10 +98,7 @@ namespace task_4
 
             }
         }
-        public UrnenGrab()
-        {
-            throw new Exception("keine Parameter übergeben");
-        }
+        
 
         public int Index { get; set; }
         public string Name { get; set; }
