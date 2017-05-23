@@ -161,16 +161,9 @@ namespace task_4
 
             string P1 = JsonConvert.SerializeObject(a);
             WriteLine("\n****"+P1+"***\n");
-            try
-            {
-                Pyramide z = JsonConvert.DeserializeObject<Pyramide>(P1);
-                WriteLine($"{z.Name} liegt auf Nummer {z.Index} in einem Typ {z.Typ}");
-            }
+            Pyramide z = JsonConvert.DeserializeObject<Pyramide>(P1);
+            WriteLine($"{z.Name} liegt auf Nummer {z.Index} in einem Typ {z.Typ}");
             
-            catch (Exception)
-            {
-
-            }
             
 
 
