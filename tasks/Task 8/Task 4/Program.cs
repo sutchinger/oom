@@ -5,6 +5,7 @@ using Task_4.Gräber;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Net;
 
 namespace Task_4
 {
@@ -19,9 +20,9 @@ namespace Task_4
             var pCount = 0;
             var eCount = 1000;
             var uCount = 1000000;
-            GrabArrayErstellen.Run();
-            ManuellesGrab.Run();
-
+            //GrabArrayErstellen.Run();
+            //ManuellesGrab.Run();
+            
 
             WriteLine("*****************************\n");
             WriteLine("UNERWARTETER PEST AUSBRUCH!!!\n");
@@ -33,6 +34,7 @@ namespace Task_4
             pSource
                 .Subscribe(x =>
                 {
+                    Console.WriteLine("*******ANOTHER KING GONE******");
                     WriteLine($"Index: {x.Index}");
                     x.MachInschrift();
                     WriteLine();
@@ -42,17 +44,20 @@ namespace Task_4
            
 
             eSource
+                .Do(x=>x.MachInschrift())
                 .Subscribe(x =>
                 {
+                    Console.WriteLine("R.I.P");
                     WriteLine($"Index: {x.Index}");
-                    x.MachInschrift();
                     WriteLine();
                 })
                 ;
 
             uSource
+                .Sample(TimeSpan.FromSeconds(1.0))
                 .Subscribe(x =>
                 {
+                    Console.WriteLine("some scum got burnt");
                     WriteLine($"Index: {x.Index}");
                     x.MachInschrift();
                     WriteLine();
@@ -65,19 +70,20 @@ namespace Task_4
                 {
                     Task.Delay(TimeSpan.FromSeconds(5.0 + rand.Next(5))).Wait();
                     pCount++;
-                    Console.WriteLine("*******ANOTHER KING GONE******");
+                    
                     Pyramide x = new Pyramide(pCount);
                     pSource.OnNext(x);
                     //return x;
                 }
             });
+            
             var eTask = Task.Run(() =>
             {
                 while (true)
                 {
                     Task.Delay(TimeSpan.FromSeconds(2.0 + rand.Next(4))).Wait();
                     eCount++;
-                    Console.WriteLine("R.I.P");
+                    
                     ErdGrab e = new ErdGrab(eCount);
                     eSource.OnNext(e);
                     //return x;
@@ -87,9 +93,9 @@ namespace Task_4
             {
                 while (true)
                 {
-                    Task.Delay(TimeSpan.FromSeconds(1.0 + rand.Next(1))).Wait();
+                    //Task.Delay(TimeSpan.FromSeconds(1.0 + rand.Next(1))).Wait();
                     uCount++;
-                    Console.WriteLine("some scum got burnt");
+                    
                     UrnenGrab x = new UrnenGrab(uCount);
                     uSource.OnNext(x);
                     //return x;
@@ -98,7 +104,7 @@ namespace Task_4
 
             Wissenschaftler.Run();
 
-
+            
 
             //WriteLine("Anykey");
             ReadKey();
